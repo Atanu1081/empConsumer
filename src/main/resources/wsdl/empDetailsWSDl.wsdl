@@ -1,0 +1,56 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="https://www.howtodoinjava.com/xml/school" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="https://www.howtodoinjava.com/xml/school" targetNamespace="https://www.howtodoinjava.com/xml/school">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="https://www.howtodoinjava.com/xml/school">
+            <xs:element name="EmpDetailsRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="name" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="EmpDetailsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Employee" type="tns:Employee"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="Employee">
+                <xs:sequence>
+                    <xs:element name="name" type="xs:string"/>
+                    <xs:element name="team" type="xs:string"/>
+                    <xs:element name="yearOfExperience" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="EmpDetailsResponse">
+        <wsdl:part element="tns:EmpDetailsResponse" name="EmpDetailsResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="EmpDetailsRequest">
+        <wsdl:part element="tns:EmpDetailsRequest" name="EmpDetailsRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="EmpDetailsPort">
+        <wsdl:operation name="EmpDetails">
+            <wsdl:input message="tns:EmpDetailsRequest" name="EmpDetailsRequest"> </wsdl:input>
+            <wsdl:output message="tns:EmpDetailsResponse" name="EmpDetailsResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="EmpDetailsPortSoap11" type="tns:EmpDetailsPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="EmpDetails">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="EmpDetailsRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="EmpDetailsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="EmpDetailsPortService">
+        <wsdl:port binding="tns:EmpDetailsPortSoap11" name="EmpDetailsPortSoap11">
+            <soap:address location="http://localhost:7777/service/emp-details"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
